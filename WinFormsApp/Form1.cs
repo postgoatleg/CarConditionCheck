@@ -51,7 +51,15 @@ namespace WinFormsApp
             year = Convert.ToInt32(textBox7.Text);
             checks[i] = new CheckCar(year, month, day, milliage, oilLevel, tirePressure, waterLevel);
             LastCheck.Text = "Последний Введенный тех. осмотр:\n" + checks[i].GetDataInString();
-            checksComboBox.Items.Add(checks[i].GetDateString());
+            checksComboBox.Items.Clear();
+            foreach (var check in checks)
+            {
+                if(check == null)
+                {
+                    break;
+                }
+                checksComboBox.Items.Add(check.GetDateString());
+            }
             i++;
 
         }
@@ -106,7 +114,6 @@ namespace WinFormsApp
             textBox5.Text = Convert.ToString(checks[id].GetDateParamString("day"));
             textBox6.Text = Convert.ToString(checks[id].GetDateParamString("month"));
             textBox7.Text = Convert.ToString(checks[id].GetDateParamString("year"));
-
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -121,6 +128,15 @@ namespace WinFormsApp
             month = Convert.ToInt32(textBox6.Text);
             year = Convert.ToInt32(textBox7.Text);
             checks[checksComboBox.SelectedIndex] = new CheckCar(year, month, day, milliage, oilLevel, tirePressure, waterLevel);
+            checksComboBox.Items.Clear();
+            foreach (var check in checks)
+            {
+                if (check == null)
+                {
+                    break;
+                }
+                checksComboBox.Items.Add(check.GetDateString());
+            }
         }
     }
 }
